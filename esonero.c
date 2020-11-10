@@ -52,7 +52,7 @@ void randomkey(){
   time_t t;
   srand((unsigned) time(&t));
   for(int i =0; i< l; i++){        // faccio un ciclo lungo quanto il messaggio
-    key[i]= rand()%128 ;   // aggiungo ad A un valore randomico fino a 26
+    key[i]= rand()%128 ;   // assegno un valore casuale per ogni cella...
   }
   printf("\033[1;32mChiave randomica: %s\n", key);
 
