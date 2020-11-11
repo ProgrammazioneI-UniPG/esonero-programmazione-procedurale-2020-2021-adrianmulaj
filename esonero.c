@@ -16,9 +16,10 @@ int main (){
 
       printf("Inserisci una stringa NON piu lunga di 128 caratteri:\n");  //richiesta stringa
       fgets(messaggio, 129, stdin);    // memorizzazo solamente i primi 128 caratteri
+      while(getchar()!='\n')  // pulisco il buffer
       printf("Messaggio iniziale: %s\n", messaggio);  //ristampo il messaggio iniziale
-      while((getchar()!='\n'));   // pulisco il buffer
     do{
+
           menu();  // invoco il metodo menu dove si potra scegleire
           printf("\033[0;31m1- Menu\n!1- Esci\n"); //output con colore...
           scanf("%d", &s);
@@ -61,7 +62,7 @@ void manualkey(){
 }
 
 void randomkey(){
-
+  while(getchar()!='\n');   // pulisco il buffer
   int l= strlen(messaggio);
   time_t t;
   srand((unsigned) time(&t));
@@ -79,7 +80,7 @@ printf("Messaggio cifrato: ");
 for (int i=0; i<l; i++){              // ciclo lungo quanto il Messaggio
   m_output[i]=key[i]^messaggio[i];   // faccio la combinazione messaggio key
   printf("%X", m_output[i]);
-}
+}printf("\n");
 
   char m;
   for (int i=0; i<l; i++){       // ciclo lungo quanto il Messaggio
