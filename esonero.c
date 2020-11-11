@@ -17,10 +17,9 @@ int main (){
       printf("Inserisci una stringa NON piu lunga di 128 caratteri:\n");  //richiesta stringa
       fgets(messaggio, 129, stdin);    // memorizzazo solamente i primi 128 caratteri
       printf("Messaggio iniziale: %s\n", messaggio);  //ristampo il messaggio iniziale
-      while(getchar()!='\n');   // pulisco il buffer
+      while((getchar()!='\n'));   // pulisco il buffer
     do{
           menu();  // invoco il metodo menu dove si potra scegleire
-          xor(); // parte il metodo xor che lavora sulle variabili ormai riempite
           printf("\033[0;31m1- Menu\n!1- Esci\n"); //output con colore...
           scanf("%d", &s);
     }while(s==1);  // ripete la richiesta per le chiavi
@@ -29,7 +28,6 @@ return 0;
 }
 
 void menu(){
-
   printf("\033[0;31m"); // colore rosso per output
     int s;
     printf("**********************************************\n");
@@ -41,17 +39,29 @@ void menu(){
       case 1:
         memset(key, 0, sizeof(key)); // svuoto la key
         manualkey();  // invoco il metodo manuale
+        xor(); // parte il metodo xor che lavora sulle variabili ormai riempite
         break;
       case 2:
         memset(key, 0, sizeof(key)); // svuoto la key
         randomkey();  // (altrimenti) invoco il metodo randomico
+        xor(); // parte il metodo xor che lavora sulle variabili ormai riempite
         break;
     }
 }
 
+void manualkey(){
+
+  do{
+      while(getchar()!='\n');   // pulisco il buffer
+      printf("\033[0;34mInserisci una chiave di Max 128 caratteri e NON piu corta del Messaggio:\n");
+      fgets(key, 129, stdin);
+  }while(strlen(key)<strlen(messaggio));  // ripeto l'input fino a che la key sara maggiore o uguale al messaggio
+  printf("Chiave manuale: %s\n", key);
+  while(getchar()!='\n');   // pulisco il buffer
+}
+
 void randomkey(){
 
-  void inserimento();
   int l= strlen(messaggio);
   time_t t;
   srand((unsigned) time(&t));
@@ -65,11 +75,12 @@ void randomkey(){
 void xor(){
 
 int l = strlen(messaggio);
-
+printf("Messaggio cifrato: ");
 for (int i=0; i<l; i++){              // ciclo lungo quanto il Messaggio
   m_output[i]=key[i]^messaggio[i];   // faccio la combinazione messaggio key
+  printf("%X", m_output[i]);
 }
-printf("Messaggio cifrato: %s\n", m_output);
+
   char m;
   for (int i=0; i<l; i++){       // ciclo lungo quanto il Messaggio
     m=m_output[i]^key[i];        // metto su una variabile d'appoggio la combinazione cifrato e chiave
@@ -78,14 +89,4 @@ printf("Messaggio cifrato: %s\n", m_output);
   printf("Messaggio decifrato: %s\n", m_output);
 }
 
-void manualkey(){
-
-  do{
-      while(getchar()!='\n');   // pulisco il buffer
-      printf("\033[0;34mInserisci una chiave di Max 128 caratteri e NON piu corta del Messaggio:\n");
-      fgets(key, 129, stdin);
-  }while(strlen(key)<strlen(messaggio));  // ripeto l'input fino a che la key sara maggiore o uguale al messaggio
-  printf("Chiave manuale: %s\n", key);
-  while(getchar()!='\n'); 
-}
-// author @andim
+//@author andim
