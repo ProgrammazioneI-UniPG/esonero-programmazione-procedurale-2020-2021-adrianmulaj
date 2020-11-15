@@ -16,7 +16,7 @@ int main (){
 
       printf("Inserisci una stringa NON piu lunga di 128 caratteri:\n");  //richiesta stringa
       fgets(messaggio, 129, stdin);    // memorizzazo solamente i primi 128 caratteri
-      while(getchar()!='\n')  // pulisco il buffer
+      while(getchar()!='\n');   // pulisco il buffer
       printf("Messaggio iniziale: %s\n", messaggio);  //ristampo il messaggio iniziale
     do{
 
